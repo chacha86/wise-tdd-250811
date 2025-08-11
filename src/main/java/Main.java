@@ -1,11 +1,17 @@
+import com.back.App;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
+        new App(new Scanner(System.in))
+                .run();
+
 //        experiment1();
-        experiment2();
+//        experiment2();
     }
 
     public static void experiment2() {
@@ -24,7 +30,7 @@ public class Main {
         System.setOut(originalOut);
         printStream.close();
 
-        if(outStr.equals("하하하")) {
+        if (outStr.equals("하하하")) {
             System.out.println("출력 결과가 일치합니다.");
         } else {
             System.out.println("출력 결과가 일치하지 않습니다.");
