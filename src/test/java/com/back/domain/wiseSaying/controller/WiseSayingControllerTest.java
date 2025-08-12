@@ -144,21 +144,21 @@ public class WiseSayingControllerTest {
     }
 
     @Test
-    @DisplayName("목록?keyword=과거")
+    @DisplayName("목록?keyword=이순신")
     void t9() {
         String out = AppTestRunner.run("""
                 등록
-                현재를 사랑하라.
-                작자미상
+                내 죽음을 적에게 알리지 마라.
+                이순신
                 등록
-                과거에 집착하지 마라.
-                작자미상
+                이순신은 최고의 해전 사령관이다.
+                넬슨
                 목록?&keyword=과거
                 """);
 
         assertThat(out)
-                .doesNotContain("1 / 작자미상 / 현재를 사랑하라.")
-                .contains("2 / 작자미상 / 과거에 집착하지 마라.");
+                .contains("2 / 넬슨 / 이순신은 최고의 해전 사령관이다.")
+                .contains("1 / 이순신 / 내 죽음을 적에게 알리지 마라.");
     }
 
     @Test

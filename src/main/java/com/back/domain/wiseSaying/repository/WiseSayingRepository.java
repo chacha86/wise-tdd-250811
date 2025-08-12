@@ -11,19 +11,12 @@ public class WiseSayingRepository {
     private int lastId = 0;
 
     public WiseSaying save(WiseSaying wiseSaying) {
-        if(wiseSaying.isNew()) {
+        if (wiseSaying.isNew()) {
             wiseSaying.setId(++lastId);
             wiseSayings.add(wiseSaying);
         }
 
         return wiseSaying;
-    }
-
-    public List<WiseSaying> findListDesc(String kw) {
-        return wiseSayings.stream()
-                .filter(w -> w.getSaying().contains(kw))
-                .toList()
-                .reversed();
     }
 
     public boolean delete(int id) {
@@ -36,5 +29,20 @@ public class WiseSayingRepository {
                 .filter(wiseSaying -> wiseSaying.getId() == id)
                 .findFirst()
                 .orElse(null);
+    }
+
+    public List<WiseSaying> findByContentContainingDesc(String kw) {
+        return wiseSayings.stream()
+                .filter(w -> w.getSaying().contains(kw))
+                .toList()
+                .reversed();
+    }
+
+    public List<WiseSaying> findByAuthorContainingDesc(String kw) {
+
+        return wiseSayings.stream()
+                .filter(w -> w.getAuthor().contains(kw))
+                .toList()
+                .reversed();
     }
 }
