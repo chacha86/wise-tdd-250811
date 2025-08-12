@@ -1,4 +1,5 @@
-import com.back.domain.wiseSaying.entity.WiseSaying;
+import com.back.App;
+import com.back.AppContext;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -7,11 +8,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        WiseSaying w = new WiseSaying( "너 자신을 알라", "소크라테스");
-        System.out.println(w);
-
-//        AppContext.init();
-//        new App().run();
+        AppContext.init();
+        new App().run();
 
 //        experiment1();
 //        experiment2();
