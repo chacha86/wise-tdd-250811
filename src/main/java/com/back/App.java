@@ -11,10 +11,10 @@ public class App {
     private WiseSayingController wiseSayingController;
     private SystemController systemController;
 
-    public App(Scanner sc) {
-        this.sc = sc;
-        wiseSayingController= new WiseSayingController(sc);
-        systemController = new SystemController();
+    public App() {
+        this.sc = AppContext.sc;
+        wiseSayingController= AppContext.wiseSayingController;
+        systemController = AppContext.systemController;
     }
 
     public void run() {
