@@ -79,10 +79,11 @@ public class WiseSayingControllerTest {
                 등록
                 과거에 집착하지 마라.
                 작자미상
-                목록
                 삭제?id=1
                 목록
                 """);
+
+        System.out.println(out);
 
         assertThat(out)
                 .contains("1번 명언이 삭제되었습니다.")
