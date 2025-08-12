@@ -153,7 +153,7 @@ public class WiseSayingControllerTest {
                 등록
                 이순신은 최고의 해전 사령관이다.
                 넬슨
-                목록?&keyword=과거
+                목록?&keyword=이순신
                 """);
 
         assertThat(out)
