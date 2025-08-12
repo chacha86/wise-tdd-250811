@@ -1,4 +1,4 @@
-package com.back.standard.util;
+package com.back.standard.test.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

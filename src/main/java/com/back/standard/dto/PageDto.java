@@ -1,4 +1,4 @@
-package com.back;
+package com.back.standard.dto;
 
 import com.back.domain.wiseSaying.entity.WiseSaying;
 import lombok.AllArgsConstructor;
@@ -14,4 +14,8 @@ public class PageDto {
     private int pageSize; // 페이지당 아이템 수
     private int totalItems; // 전체 아이템 수
     private List<WiseSaying> content;
+
+    public int getTotalPages() {
+        return (int) Math.ceil((double) totalItems / pageSize);
+    }
 }

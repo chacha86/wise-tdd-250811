@@ -1,4 +1,4 @@
-package com.back.standard.util;
+package com.back.standard.test.util;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TestUtilTest {
 
     @Test
-    @DisplayName("com.back.standard.util.TestUtil.genScanner()")
+    @DisplayName("com.back.standard.test.util.TestUtil.genScanner()")
     void t1() {
 
         Scanner sc = TestUtil.genScanner("""
@@ -33,7 +33,7 @@ public class TestUtilTest {
     }
 
     @Test
-    @DisplayName("com.back.standard.util.TestUtil.setOutToByteArray()")
+    @DisplayName("com.back.standard.test.util.TestUtil.setOutToByteArray()")
     void t2() throws IOException {
 
         ByteArrayOutputStream outputStream = TestUtil.setOutToByteArray();

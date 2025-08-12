@@ -1,6 +1,6 @@
 package com.back.domain.wiseSaying.repository;
 
-import com.back.PageDto;
+import com.back.standard.dto.PageDto;
 import com.back.domain.wiseSaying.entity.WiseSaying;
 
 import java.util.ArrayList;
@@ -32,37 +32,40 @@ public class WiseSayingRepository {
                 .orElse(null);
     }
 
-    public List<WiseSaying> findByContentContainingDesc(String kw, int pageSize, int pageNo) {
-        return wiseSayings.reversed().stream()
+    public PageDto findByContentContainingDesc(String kw, int pageSize, int pageNo) {
+        List<WiseSaying> filteredContent = wiseSayings.reversed().stream()
                 .filter(w -> w.getSaying().contains(kw))
-                .skip((pageNo-1) * pageSize)
-                .limit(pageSize)
                 .toList();
+
+        return pageOf(filteredContent, pageNo, pageSize);
     }
 
-    public List<WiseSaying> findByAuthorContainingDesc(String kw, int pageSize, int pageNo) {
+    public PageDto findByAuthorContainingDesc(String kw, int pageSize, int pageNo) {
 
-        return wiseSayings.reversed().stream()
+        List<WiseSaying> filteredContent =  wiseSayings.reversed().stream()
                 .filter(w -> w.getAuthor().contains(kw))
-                .skip((pageNo-1) * pageSize)
-                .limit(pageSize)
                 .toList();
+
+        return pageOf(filteredContent, pageNo, pageSize);
     }
 
     public PageDto findByContentContainingOrAuthorContainingDesc(String kw, int pageSize, int pageNo) {
-
-
         List<WiseSaying> filteredContent = wiseSayings.reversed().stream()
                 .filter(w -> w.getAuthor().contains(kw) || w.getSaying().contains(kw))
                 .toList();
 
-        List<WiseSaying> content = filteredContent.stream()
-                .skip((pageNo-1) * pageSize)
+        return pageOf(filteredContent, pageNo, pageSize);
+    }
+
+
+    public PageDto pageOf(List<WiseSaying> content, int pageNo, int pageSize) {
+        int totalItems = content.size();
+        List<WiseSaying> paginatedContent = content.stream()
+                .skip((pageNo - 1) * pageSize)
                 .limit(pageSize)
                 .toList();
 
-        int totalItems = filteredContent.size();
+        return new PageDto(pageNo, pageSize, totalItems, paginatedContent);
 
-        return new PageDto(pageNo, pageSize, totalItems, content);
     }
 }
