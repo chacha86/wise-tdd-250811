@@ -34,7 +34,7 @@ public class WiseSayingRepository {
 
     public PageDto findByContentContainingDesc(String kw, int pageSize, int pageNo) {
         List<WiseSaying> filteredContent = wiseSayings.reversed().stream()
-                .filter(w -> w.getAuthor().contains(kw))
+                .filter(w -> w.getSaying().contains(kw))
                 .toList();
 
         return pageOf(filteredContent, pageNo, pageSize);
