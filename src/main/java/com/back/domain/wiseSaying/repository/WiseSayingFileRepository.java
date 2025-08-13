@@ -7,6 +7,20 @@ import java.util.Map;
 
 public class WiseSayingFileRepository {
 
+    private static String dbPath = "db/wiseSaying";
+
+    public static void clear() {
+        Util.file.delete(dbPath);
+    }
+
+    private String getFilePath(int id) {
+        return dbPath + "/%d.json".formatted(id);
+    }
+
+    private String getLastIdPath() {
+        return dbPath + "/lastId.txt";
+    }
+
     public void save(WiseSaying wiseSaying) {
 
         if(wiseSaying.isNew()) {
@@ -15,22 +29,22 @@ public class WiseSayingFileRepository {
             int lastId = getLastId();
             wiseSaying.setId(lastId);
             String jsonStr = Util.json.toString(wiseSaying.toMap());
-            Util.file.set("db/wiseSaying/%d.json".formatted(wiseSaying.getId()), jsonStr);
+            Util.file.set(getFilePath(wiseSaying.getId()), jsonStr);
         }
 
     }
 
     private void incrementLastId() {
-        Util.file.set("db/wiseSaying/lastId.txt", String.valueOf(getLastId() + 1));
+        Util.file.set(getLastIdPath(), String.valueOf(getLastId() + 1));
     }
 
     private int getLastId() {
 
-       return Util.file.getAsInt("db/wiseSaying/lastId.txt", 0);
+       return Util.file.getAsInt(getLastIdPath(), 0);
     }
 
     public WiseSaying findByIdOrNull(int id) {
-        String jsonStr = Util.file.get("db/wiseSaying/%d.json".formatted(id), "");
+        String jsonStr = Util.file.get(getFilePath(id), "");
 
         if(jsonStr.isEmpty()) {
             return null;
