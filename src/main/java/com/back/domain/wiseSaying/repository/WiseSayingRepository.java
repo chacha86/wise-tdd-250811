@@ -32,21 +32,21 @@ public class WiseSayingRepository {
                 .orElse(null);
     }
 
-    public List<WiseSaying> findByContentContainingDesc(String kw, int pageSize, int pageNo) {
-        return wiseSayings.reversed().stream()
-                .filter(w -> w.getSaying().contains(kw))
-                .skip((pageNo-1) * pageSize)
-                .limit(pageSize)
+    public PageDto findByContentContainingDesc(String kw, int pageSize, int pageNo) {
+        List<WiseSaying> filteredContent = wiseSayings.reversed().stream()
+                .filter(w -> w.getAuthor().contains(kw))
                 .toList();
+
+        return pageOf(filteredContent, pageNo, pageSize);
     }
 
-    public List<WiseSaying> findByAuthorContainingDesc(String kw, int pageSize, int pageNo) {
+    public PageDto findByAuthorContainingDesc(String kw, int pageSize, int pageNo) {
 
-        return wiseSayings.reversed().stream()
+        List<WiseSaying> filteredContent = wiseSayings.reversed().stream()
                 .filter(w -> w.getAuthor().contains(kw))
-                .skip((pageNo-1) * pageSize)
-                .limit(pageSize)
                 .toList();
+
+        return pageOf(filteredContent, pageNo, pageSize);
     }
 
     public PageDto findByContentContainingOrAuthorContainingDesc(String kw, int pageSize, int pageNo) {
@@ -56,13 +56,18 @@ public class WiseSayingRepository {
                 .filter(w -> w.getAuthor().contains(kw) || w.getSaying().contains(kw))
                 .toList();
 
+        return pageOf(filteredContent, pageNo, pageSize);
+    }
+
+    private PageDto pageOf(List<WiseSaying> filteredContent, int pageNo, int pageSize) {
+
         List<WiseSaying> content = filteredContent.stream()
                 .skip((pageNo-1) * pageSize)
                 .limit(pageSize)
                 .toList();
 
         int totalItems = filteredContent.size();
-
         return new PageDto(pageNo, pageSize, totalItems, content);
     }
+
 }
