@@ -24,7 +24,6 @@ public class WiseSayingFileRepositoryTest {
         wiseSayingFileRepository.save(wiseSaying);
 
         WiseSaying foundedWiseSaying = wiseSayingFileRepository.findByIdOrNull(1);
-
         assertThat(foundedWiseSaying).isEqualTo(wiseSaying);
 
     }
