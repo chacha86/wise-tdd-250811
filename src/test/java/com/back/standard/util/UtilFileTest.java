@@ -57,5 +57,7 @@ public class UtilFileTest {
         // then
         assertThat(content).isEqualTo("hello world");
 
+        // 테스트가 끝나면 파일 삭제
+        Util.file.delete(filePath);
     }
 }
