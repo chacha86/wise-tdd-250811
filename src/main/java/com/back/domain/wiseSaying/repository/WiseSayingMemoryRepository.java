@@ -69,4 +69,7 @@ public class WiseSayingMemoryRepository implements WiseSayingRepository {
         return new PageDto(pageNo, pageSize, totalItems, content);
     }
 
+    public List<WiseSaying> findAll() {
+        return wiseSayings;
+    }
 }
