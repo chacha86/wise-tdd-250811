@@ -22,7 +22,7 @@ public class WiseSayingFileRepository {
         return dbPath + "/lastId.txt";
     }
 
-    public void save(WiseSaying wiseSaying) {
+    public WiseSaying save(WiseSaying wiseSaying) {
 
         if(wiseSaying.isNew()) {
 
@@ -32,6 +32,8 @@ public class WiseSayingFileRepository {
             String jsonStr = Util.json.toString(wiseSaying.toMap());
             Util.file.set(getFilePath(wiseSaying.getId()), jsonStr);
         }
+
+        return wiseSaying;
 
     }
 
@@ -55,5 +57,9 @@ public class WiseSayingFileRepository {
         WiseSaying wiseSaying = new WiseSaying(map);
 
         return Optional.of(wiseSaying);
+    }
+
+    public boolean delete(WiseSaying wiseSaying1) {
+        return false;
     }
 }
