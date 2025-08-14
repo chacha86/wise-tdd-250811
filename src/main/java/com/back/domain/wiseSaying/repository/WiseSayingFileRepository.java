@@ -28,7 +28,7 @@ public class WiseSayingFileRepository implements WiseSayingRepository {
 
     public WiseSaying save(WiseSaying wiseSaying) {
 
-        if(wiseSaying.isNew()) {
+        if (wiseSaying.isNew()) {
             incrementLastId();
             int lastId = getLastId();
             wiseSaying.setId(lastId);
@@ -46,13 +46,13 @@ public class WiseSayingFileRepository implements WiseSayingRepository {
 
     private int getLastId() {
 
-       return Util.file.getAsInt(getLastIdPath(), 0);
+        return Util.file.getAsInt(getLastIdPath(), 0);
     }
 
     public Optional<WiseSaying> findById(int id) {
         String jsonStr = Util.file.get(getFilePath(id), "");
 
-        if(jsonStr.isEmpty()) {
+        if (jsonStr.isEmpty()) {
             return Optional.empty();
         }
 
@@ -88,7 +88,7 @@ public class WiseSayingFileRepository implements WiseSayingRepository {
     private PageDto pageOf(List<WiseSaying> filteredContent, int pageNo, int pageSize) {
 
         List<WiseSaying> content = filteredContent.stream()
-                .skip((pageNo-1) * pageSize)
+                .skip((pageNo - 1) * pageSize)
                 .limit(pageSize)
                 .toList();
 
@@ -115,6 +115,17 @@ public class WiseSayingFileRepository implements WiseSayingRepository {
     }
 
     public String build() {
-        return null;
+        List<WiseSaying> wiseSayings = findAll();
+
+        List<Map<String, Object>> mapList = wiseSayings.stream()
+                .map(WiseSaying::toMap)
+                .toList();
+
+        String jsonStr = Util.json.toString(mapList);
+        String filePath = dbPath + "/data.json";
+
+        Util.file.set(filePath, jsonStr);
+
+        return filePath;
     }
 }
